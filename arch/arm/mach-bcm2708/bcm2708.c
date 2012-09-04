@@ -571,8 +571,8 @@ static struct resource bcm2708_bsc0_resources[] = {
 };
 
 static struct pca953x_platform_data pi_tin_io_expander_data = {
-	.gpio_base = 40;
-}
+	.gpio_base = 40,
+};
 
 static struct i2c_board_info __initdata pi_tin_i2c_devices[] = {
 	{

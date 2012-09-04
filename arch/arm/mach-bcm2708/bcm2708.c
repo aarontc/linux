@@ -54,6 +54,11 @@
 #include <mach/vcio.h>
 #include <mach/system.h>
 
+
+/* Begin Pi Tin customizations .. eventually roll this into another board type for this machine */
+#include <linux/i2c/pca953x.h>
+
+
 #include "bcm2708.h"
 #include "armctrl.h"
 #include "clock.h"
@@ -565,6 +570,22 @@ static struct resource bcm2708_bsc0_resources[] = {
 	}
 };
 
+static struct pca953x_platform_data pi_tin_io_expander_data = {
+	.gpio_base = 40;
+}
+
+static struct i2c_board_info __initdata pi_tin_i2c_devices[] = {
+	{
+		/* IO expander - all three address lines grounded */
+		I2C_BOARD_INFO("max7313", 0x10),
+		.platform_data = &pi_tin_io_expander_data,
+	},
+	{
+		/* Real time clock - DS1307 or DS3231 */
+		I2C_BOARD_INFO("ds1307", 0x68),
+	},
+};
+
 static struct platform_device bcm2708_bsc0_device = {
 	.name = "bcm2708_i2c",
 	.id = 0,
@@ -666,6 +687,8 @@ void __init bcm2708_init(void)
 
 	bcm_register_device(&bcm2835_hwmon_device);
 	bcm_register_device(&bcm2835_thermal_device);
+
+	i2c_register_board_info(0, pi_tin_i2c_devices, ARRAY_SIZE(pi_tin_i2c_devices));
 
 #ifdef CONFIG_BCM2708_VCMEM
 	{

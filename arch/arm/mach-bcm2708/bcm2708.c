@@ -577,7 +577,7 @@ static struct pca953x_platform_data pi_tin_io_expander_data = {
 static struct i2c_board_info __initdata pi_tin_i2c_devices[] = {
 	{
 		/* IO expander - all three address lines grounded */
-		I2C_BOARD_INFO("max7313", 0x10),
+		I2C_BOARD_INFO("max7313", 0x20),
 		.platform_data = &pi_tin_io_expander_data,
 	},
 	{

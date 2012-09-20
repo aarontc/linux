@@ -84,3 +84,7 @@ GTAGS
 *.orig
 *~
 \#*#
+args-uncompressed.txt
+boot-uncompressed.txt
+imagetool-uncompressed.py
+kernel.img

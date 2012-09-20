@@ -571,7 +571,7 @@ static struct resource bcm2708_bsc0_resources[] = {
 };
 
 static struct pca953x_platform_data pi_tin_io_expander_data = {
-	.gpio_base = 40,
+	.gpio_base = 100,
 };
 
 static struct i2c_board_info __initdata pi_tin_i2c_devices[] = {
@@ -583,6 +583,10 @@ static struct i2c_board_info __initdata pi_tin_i2c_devices[] = {
 	{
 		/* Real time clock - DS1307 or DS3231 */
 		I2C_BOARD_INFO("ds1307", 0x68),
+	},
+	{
+		/* Temperature sensor - LM75 compatible */
+		I2C_BOARD_INFO("lm75", 0x48),
 	},
 };
 
